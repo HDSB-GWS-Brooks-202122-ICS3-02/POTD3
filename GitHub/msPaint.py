@@ -26,12 +26,16 @@ def main():
         ev = pygame.event.poll()    # Look for any event
         if ev.type == pygame.QUIT:  # Window close button clicked?
             break                   #   ... leave game loop
+        elif ev.type == pygame.MOUSEBUTTONUP:
+            if ev.button == 3:
+                drawCircle = False
         elif ev.type == pygame.MOUSEBUTTONDOWN:
-            if circleColor == (255, 0, 0):
-                circleColor = (255, 255, 255)
-                pygame.draw.circle(mainSurface, circleColor, (circleX,circleY), 10000)
-            elif circleColor == (255, 255, 255):
-                circleColor = (255, 0, 0)
+            if ev.button == 3:
+                drawCircle = True
+            #if circleColor == (255, 0, 0):
+                #circleColor = (0, 0, 255)
+            #elif circleColor == (0, 0, 255):
+                #circleColor = (255, 0, 0)
         elif ev.type == pygame.MOUSEMOTION:
             circleX = ev.pos[0]
             circleY = ev.pos[1]
