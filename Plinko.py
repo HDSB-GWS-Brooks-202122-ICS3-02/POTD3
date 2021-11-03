@@ -10,7 +10,7 @@ def main():
     
     
 
-    # Set up some data to describe a small circle and its color
+    # Set variables for colors to be used later on
     RED = pygame.Color(255,0,0)
     GREEN = pygame.Color(0,255,0)
     BLUE = pygame.Color(0,0,255)
@@ -19,15 +19,17 @@ def main():
     BROWN2 = pygame.Color(185, 145, 40)
     
     fps = 60
-    clock = pygame.time.Clock()
+    clock = pygame.time.Clock() #Set a frames per second so that it runs at a steady pace
     
-    circleX = 2000;
+    circleX = 2000; #Spawn a ball WAY off the screen since we don't want it but we need the code later
     circleY = 2000;
     circleColor = RED
-    ballDropped = False
+    ballDropped = False  #Variables to be used for gravity physics later on
     bottom = 470
     circleSize = 8
     fallingSpeed = 0.01
+    
+    font = pygame.font.SysFont("Comic Sans MS", 18) #Get a font and size ready for the rules later
     
     
     while True:
@@ -37,7 +39,7 @@ def main():
 
         mainSurface.fill((0, 200, 255))
     
-        pygame.draw.rect(mainSurface, BROWN, pygame.Rect(150, 50, 320, 420))
+        pygame.draw.rect(mainSurface, BROWN, pygame.Rect(150, 50, 320, 420)) #All these shapes are what make up the plinko board itself
         pygame.draw.rect(mainSurface, BROWN2, pygame.Rect(150, 390, 320, 80))
         pygame.draw.line(mainSurface, BLACK, (150,50), (150,470))
         pygame.draw.line(mainSurface, BLACK, (470, 50), (470,470))
@@ -60,20 +62,33 @@ def main():
         pygame.draw.circle(mainSurface, BROWN2, (430, 100), 20)
         pygame.draw.circle(mainSurface, BROWN2, (190, 100), 20)
         
-        if (ballDropped == False) and (ev.type == pygame.MOUSEBUTTONDOWN):
+        line = font.render('Here are the rules. ', 1, BLACK) #Selecting color and what to say
+        line2 = font.render('You must drop a', 1, BLACK)
+        line3 = font.render('ball into one of', 1, BLACK)
+        line4 = font.render('the columns that', 1, BLACK)
+        line5 = font.render('says win to win.', 1, BLACK)
+        line6 = font.render('Easy.', 1, (0,0,0))
+        mainSurface.blit(line, (10,0)) #Blit-ing font code above to the main surface (what everything is on)
+        mainSurface.blit(line2, (10,20))
+        mainSurface.blit(line3, (10,40))
+        mainSurface.blit(line4, (10,60))
+        mainSurface.blit(line5, (10,80))
+        mainSurface.blit(line6, (10,120))
+        
+        if (ballDropped == False) and (ev.type == pygame.MOUSEBUTTONDOWN): #If a ball hasn't been dropped yet and you clicked drop a ball and set ballDropped to true (so you can't drop another)
             circleX = ev.pos[0]
             circleY = ev.pos[1]
             ballDropped = True
             
-        circleY += fallingSpeed
+        #circleY += fallingSpeed
         
-        if ((circleY + circleSize) > bottom) and (ballDropped == True):
+        if ((circleY + circleSize) > bottom) and (ballDropped == True): #if the circle hasn't touched the bottom decrease height
             circleY = bottom - circleSize
             fallingSpeed = 0
         else:
-            circleY += 0.38
+            circleY += 0.38 #speed at which the ball falls
             
-        pygame.draw.circle(mainSurface, circleColor, (circleX,circleY), 8)
+        pygame.draw.circle(mainSurface, circleColor, (circleX,circleY), 8) #drawing a circle with gravity mechanics
 
             
 
