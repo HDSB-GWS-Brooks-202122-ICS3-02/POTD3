@@ -17,8 +17,9 @@ def main():
     BLACK = pygame.Color(0, 0, 0)
     BROWN = pygame.Color(125, 99, 29)
     BROWN2 = pygame.Color(185, 145, 40)
+    WHITE = pygame.Color(255, 255, 255)
     
-    fps = 80
+    fps = 160
     clock = pygame.time.Clock() #Set a frames per second so that it runs at a steady pace
     
     circleX = 2000; #Spawn a ball WAY off the screen since we don't want it but we need the code later
@@ -33,18 +34,19 @@ def main():
     
     screenDisplayed = False
     counter = 0
+    counter2 = 0
     
     while True:
         ev = pygame.event.poll()    # Look for any event
         if ev.type == pygame.QUIT:  # Window close button clicked?
             break                   #   ... leave game loop
         
-        print(screenDisplayed, counter)
+        #print(screenDisplayed, counter)
         if screenDisplayed == False:
             counter += 1
             startScreen = pygame.image.load("startScreen.png")
             mainSurface.blit(startScreen, (-120,50))
-            if counter > 200:
+            if counter > 300:
                 screenDisplayed = True
         
         if screenDisplayed == True:        
@@ -74,6 +76,15 @@ def main():
             pygame.draw.circle(mainSurface, BROWN2, (430, 100), 20)
             pygame.draw.circle(mainSurface, BROWN2, (190, 100), 20)
             
+            loss = font.render('Loss', 1, BLACK)
+            mainSurface.blit(loss, (160, 400))
+            mainSurface.blit(loss, (270, 400))
+            mainSurface.blit(loss, (325, 400))
+            mainSurface.blit(loss, (430, 400))
+            win = font.render('Win', 1, BLACK)
+            mainSurface.blit(win, (215, 400))
+            mainSurface.blit(win, (380, 400))
+            
             line = font.render('Here are the rules. ', 1, BLACK) #Selecting color and what to say
             line2 = font.render('You must drop a', 1, BLACK)
             line3 = font.render('ball into one of', 1, BLACK)
@@ -100,9 +111,60 @@ def main():
                 circleY = bottom - circleSize
                 fallingSpeed = 0
             else:
-                circleY += 0.38 #speed at which the ball falls
+                circleY += 9 #speed at which the ball falls
                 
             pygame.draw.circle(mainSurface, circleColor, (circleX,circleY), circleSize) #drawing a circle with gravity mechanics
+
+            if ((circleX >= 150) and (circleX <= 205)) and ((circleY >= 460) and (circleY <= 480)):
+                lossScreen = pygame.image.load("lossScreen.png")
+                mainSurface.blit(lossScreen, (-120,100))
+                pygame.draw.rect(mainSurface, WHITE, pygame.Rect(0, 0, 500, 100))
+                counter2 += 1
+                if counter2 >= 300:
+                    exit()
+            elif ((circleX >= 205) and (circleX <= 260)) and ((circleY >= 460) and (circleY <= 480)):
+                lossScreen = pygame.image.load("winScreen.png")
+                mainSurface.blit(lossScreen, (-110,100))
+                pygame.draw.rect(mainSurface, WHITE, pygame.Rect(0, 0, 500, 100))
+                counter2 += 1
+                if counter2 >= 300:
+                    exit()
+            elif ((circleX >= 260) and (circleX <= 315)) and ((circleY >= 460) and (circleY <= 480)):
+                lossScreen = pygame.image.load("lossScreen.png")
+                mainSurface.blit(lossScreen, (-120,100))
+                pygame.draw.rect(mainSurface, WHITE, pygame.Rect(0, 0, 500, 100))
+                counter2 += 1
+                if counter2 >= 300:
+                    exit()
+            elif ((circleX >= 315) and (circleX <= 370)) and ((circleY >= 460) and (circleY <= 480)):
+                lossScreen = pygame.image.load("lossScreen.png")
+                mainSurface.blit(lossScreen, (-120,100))
+                pygame.draw.rect(mainSurface, WHITE, pygame.Rect(0, 0, 500, 100))
+                counter2 += 1
+                if counter2 >= 300:
+                    exit()
+            elif ((circleX >= 370) and (circleX <= 425)) and ((circleY >= 460) and (circleY <= 480)):
+                lossScreen = pygame.image.load("winScreen.png")
+                mainSurface.blit(lossScreen, (-110,100))
+                pygame.draw.rect(mainSurface, WHITE, pygame.Rect(0, 0, 500, 100))
+                counter2 += 1
+                if counter2 >= 300:
+                    exit()
+            elif ((circleX >= 425) and (circleX <= 480)) and ((circleY >= 460) and (circleY <= 480)):
+                lossScreen = pygame.image.load("lossScreen.png")
+                mainSurface.blit(lossScreen, (-120,100))
+                pygame.draw.rect(mainSurface, WHITE, pygame.Rect(0, 0, 500, 100))
+                counter2 += 1
+                if counter2 >= 300:
+                    exit()
+            elif (circleX < 145) and ((circleY >= 460) and (circleY <= 480)):
+                lossScreen = pygame.image.load("noScreen.png")
+                mainSurface.blit(lossScreen, (-120,100))
+                pygame.draw.rect(mainSurface, WHITE, pygame.Rect(0, 0, 500, 100))
+                counter2 += 1
+                if counter2 >= 300:
+                    exit()
+            
 
                 
 
